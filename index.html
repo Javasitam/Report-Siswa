@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Laporan Siswa – Keandre Javas Nararya Baruna</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  
+  <style>
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+    
+    html { 
+      scroll-behavior: smooth; 
+    }
+
+    html[data-theme="light"] {
+      --bg-body: #f0f4ff;
+      --bg-surface: #ffffff;
+      --bg-surface-alt: #f8faff;
+      --bg-surface-dim: #e8eeff;
+      --border-color: #d0d8f0;
+      --border-color-heavy: #c5d0e8;
+      --text-main: #1a1f36;
+      --text-muted: #5a6282;
+      --text-light: #9ba3c0;
+      --primary-color: #fb923c;
+      --primary-hover: #ea580c;
+      --primary-light: #fed7aa;
+      --accent-color: #10b981;
+      --nav-bg: #06b6d4;
+      --shadow-sm: 0 1px 3px rgba(30,50,120,0.08);
+      --shadow-md: 0 4px 16px rgba(30,50,120,0.10);
+      --shadow-lg: 0 12px 40px rgba(30,50,120,0.14);
+      --status-comp-bg: #d1fae5;
+      --status-comp-text: #065f46;
+      --status-prog-bg: #dbeafe;
+      --status-prog-text: #1e40af;
+    }
+
+    html[data-theme="dark"] {
+      --bg-body: #09121c;
+      --bg-surface: #111c2c;
+      --bg-surface-alt: #16233d;
+      --bg-surface-dim: #1c2f47;
+      --border-color: #214263;
+      --border-color-heavy: #2b5d84;
+      --text-main: #e5efff;
+      --text-muted: #95a8c9;
+      --text-light: #b3c7e5;
+      --primary-color: #fb923c;
+      --primary-hover: #ea580c;
+      --primary-light: #fed7aa;
+      --accent-color: #22d3ee;
+      --nav-bg: #0d1117;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.35);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.45);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.55);
+      --status-comp-bg: #08352a;
+      --status-comp-text: #7dd3fc;
+      --status-prog-bg: #18356d;
+      --status-prog-text: #93c5fd;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-size: 1rem;
+      color: var(--text-main);
+      background-color: var(--bg-body);
+      line-height: 1.65;
+    }
+
+    img { 
+      display: block; 
+      max-width: 100%; 
+      height: auto; 
+    }
+    
+    a, button {
+      transition: all 180ms ease-in-out;
+      text-decoration: none;
+    }
+    
+    button { 
+      border: none; 
+      background: none; 
+      font: inherit; 
+      color: inherit; 
+      cursor: pointer;
+    }
+    
+    h1, h2, h3 { 
+      font-family: 'Instrument Serif', Georgia, serif; 
+      line-height: 1.2; 
+    }
+
+    .scroll-indicator {
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      height: 3px;
+      background: linear-gradient(90deg, #fb923c 0%, #f97316 100%);
+      z-index: 200; 
+      width: 0%;
+    }
+
+    .main-header {
+      background: var(--nav-bg);
+      padding: 1.25rem 2rem;
+      position: sticky; 
+      top: 0; 
+      z-index: 100;
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between;
+      gap: 1rem; 
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    
+    .brand-group { 
+      display: flex; 
+      align-items: center; 
+      gap: 0.75rem; 
+    }
+    
+    .brand-meta h1 { 
+      font-size: 1.35rem; 
+      color: #ffffff; 
+      font-style: italic; 
+    }
+    
+    .brand-meta span { 
+      font-size: 0.8rem; 
+      color: rgba(255,255,255,0.55); 
+      letter-spacing: 0.05em; 
+      text-transform: uppercase; 
+    }
+    
+    .actions-group { 
+      display: flex; 
+      align-items: center; 
+      gap: 1rem; 
+    }
+    
+    .badge-info { 
+      background: var(--primary-color); 
+      color: #ffffff; 
+      font-size: 0.8rem; 
+      font-weight: 700; 
+      padding: 0.25rem 0.75rem; 
+      border-radius: 9999px; 
+    }
+    
+    .theme-switcher {
+      width: 36px; 
+      height: 36px; 
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1); 
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      color: rgba(255,255,255,0.8);
+    }
+    
+    .theme-switcher:hover { 
+      background: rgba(255,255,255,0.2); 
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, #22d3ee 0%, #fb923c 100%);
+      padding: 4rem 2rem;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      text-align: center; 
+      position: relative; 
+      overflow: hidden;
+    }
+    
+    .hero-inner { 
+      position: relative; 
+      z-index: 1; 
+      max-width: 700px; 
+    }
+    
+    .avatar-frame { 
+      width: 130px; 
+      height: 130px; 
+      border-radius: 50%; 
+      overflow: hidden; 
+      border: 4px solid rgba(255,255,255,0.4); 
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4); 
+      margin: 0 auto 1.5rem; 
+      background-color: #eaeaea; 
+    }
+    
+    .avatar-frame img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+    }
+    
+    .hero-title { 
+      font-size: 3.5rem; 
+      color: #ffffff; 
+      margin-bottom: 0.5rem; 
+    }
+    
+    .hero-subtitle { 
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif; 
+      font-size: 1.25rem; 
+      color: rgba(255,255,255,0.75); 
+      margin-bottom: 1.5rem; 
+    }
+    
+    .tag-container { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 0.5rem; 
+      justify-content: center; 
+    }
+    
+    .tag-item { 
+      background: rgba(255,255,255,0.15); 
+      border: 1px solid rgba(255,255,255,0.25); 
+      color: #ffffff; 
+      font-size: 0.8rem; 
+      font-weight: 600; 
+      padding: 0.25rem 0.75rem; 
+      border-radius: 9999px; 
+      backdrop-filter: blur(8px); 
+    }
+
+    .main-container { 
+      max-width: 960px; 
+      margin: 0 auto; 
+      padding: 2rem 1.5rem; 
+    }
+    
+    .section-padding { 
+      padding: 3rem 0; 
+    }
+    
+    .section-tag { 
+      font-size: 0.8rem; 
+      font-weight: 700; 
+      text-transform: uppercase; 
+      letter-spacing: 0.12em; 
+      color: var(--primary-color); 
+      margin-bottom: 0.5rem; 
+    }
+    
+    .section-title { 
+      font-size: 2rem; 
+      color: var(--text-main); 
+      margin-bottom: 1.5rem; 
+    }
+
+    .profile-layout { 
+      display: grid; 
+      grid-template-columns: 1fr 280px; 
+      gap: 2.5rem; 
+      align-items: start; 
+    }
+    
+    .profile-sidebar { 
+      background: var(--bg-surface); 
+      border-radius: 1.5rem; 
+      padding: 2rem; 
+      box-shadow: var(--shadow-md); 
+      border: 1px solid var(--border-color-heavy); 
+      text-align: center; 
+    }
+    
+    .sidebar-img { 
+      width: 140px; 
+      height: 140px; 
+      border-radius: 50%; 
+      object-fit: cover; 
+      margin: 0 auto 1rem; 
+      border: 3px solid var(--primary-light); 
+      box-shadow: var(--shadow-md); 
+      background-color: #eaeaea;
+    }
+    
+    .sidebar-name { 
+      font-size: 1.25rem; 
+      font-weight: 700; 
+      margin-bottom: 0.25rem; 
+    }
+    
+    .sidebar-school { 
+      font-size: 0.95rem; 
+      color: var(--text-muted); 
+      margin-bottom: 1.5rem; 
+    }
+    
+    .info-list { 
+      list-style: none; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 0.75rem; 
+    }
+    
+    .info-row { 
+      display: flex; 
+      align-items: flex-start; 
+      gap: 0.75rem; 
+      font-size: 0.9rem; 
+      padding: 0.5rem 0.75rem; 
+      background: var(--bg-surface-alt); 
+      border-radius: 0.5rem; 
+      border: 1px solid var(--border-color); 
+    }
+    
+    .info-label { 
+      color: var(--text-muted); 
+      font-weight: 600; 
+      min-width: 80px; 
+      flex-shrink: 0; 
+      text-align: left; 
+    }
+    
+    .content-card { 
+      background: var(--bg-surface); 
+      border-radius: 1.5rem; 
+      padding: 2rem; 
+      box-shadow: var(--shadow-sm); 
+      border: 1px solid var(--border-color-heavy); 
+    }
+    
+    .content-card p { 
+      font-size: 1.05rem; 
+      color: var(--text-muted); 
+      max-width: 65ch; 
+      margin-bottom: 1.25rem;
+    }
+
+    .content-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .table-container { 
+      background: var(--bg-surface); 
+      border-radius: 1.5rem; 
+      box-shadow: var(--shadow-md); 
+      overflow: hidden; 
+      border: 1px solid var(--border-color-heavy); 
+      margin-top: 1rem;
+    }
+    
+    .data-table { 
+      width: 100%; 
+      border-collapse: collapse; 
+    }
+    
+    .data-table th, .data-table td { 
+      padding: 1rem 1.5rem; 
+      text-align: left; 
+      font-size: 0.95rem; 
+    }
+    
+    .data-table thead { 
+      background: var(--nav-bg); 
+      color: #ffffff; 
+    }
+    
+    .data-table th { 
+      font-weight: 700; 
+      letter-spacing: 0.04em; 
+      text-transform: uppercase; 
+      font-size: 0.8rem; 
+      color: rgba(255,255,255,0.8); 
+    }
+    
+    .data-table tbody tr { 
+      border-bottom: 1px solid var(--border-color); 
+    }
+    
+    .data-table tbody tr:last-child { 
+      border-bottom: none; 
+    }
+    
+    .data-table tbody tr:hover { 
+      background-color: var(--bg-surface-dim); 
+    }
+    
+    .status-pill { 
+      display: inline-flex; 
+      font-weight: 700; 
+      font-size: 0.85rem; 
+      padding: 0.25rem 0.75rem; 
+      border-radius: 9999px; 
+    }
+    
+    .status-completed { 
+      background: var(--status-comp-bg); 
+      color: var(--status-comp-text); 
+    }
+    
+    .status-progress { 
+      background: var(--status-prog-bg); 
+      color: var(--status-prog-text); 
+    }
+    
+    .highlight-row td { 
+      background: var(--primary-light); 
+      font-weight: 700; 
+      color: var(--primary-color); 
+    }
+
+    .cards-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); 
+      gap: 1.5rem; 
+      margin-top: 1.5rem; 
+    }
+    
+    .project-card { 
+      background: var(--bg-surface); 
+      border-radius: 1.5rem; 
+      overflow: hidden; 
+      box-shadow: var(--shadow-sm); 
+      border: 1px solid var(--border-color-heavy); 
+      display: flex; 
+      flex-direction: column; 
+    }
+    
+    .project-card:hover { 
+      transform: translateY(-4px); 
+      box-shadow: var(--shadow-lg); 
+    }
+    
+    .card-banner { 
+      height: 140px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 3rem; 
+    }
+    
+    .gradient-1 { background: linear-gradient(135deg, #2f54eb, #6366f1); }
+    .gradient-2 { background: linear-gradient(135deg, #10b981, #06b6d4); }
+    .gradient-3 { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+    
+    .card-body { 
+      padding: 1.5rem; 
+      flex: 1; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 0.75rem; 
+    }
+    
+    .card-body h3 { 
+      font-size: 1.35rem; 
+      font-weight: 700; 
+    }
+    
+    .card-body p { 
+      font-size: 0.9rem; 
+      color: var(--text-muted); 
+      flex: 1; 
+    }
+    
+    .btn-action { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 0.5rem; 
+      background: var(--primary-color); 
+      color: #ffffff; 
+      font-size: 0.9rem; 
+      font-weight: 700; 
+      padding: 0.75rem 1.5rem; 
+      border-radius: 9999px; 
+      align-self: flex-start; 
+      margin-top: 0.5rem; 
+    }
+    
+    .btn-action:hover { 
+      background: var(--primary-hover); 
+      transform: translateY(-1px); 
+    }
+
+    .main-footer { 
+      background: var(--nav-bg); 
+      color: rgba(255,255,255,0.55); 
+      text-align: center; 
+      padding: 2rem; 
+      font-size: 0.9rem; 
+      margin-top: 4rem;
+    }
+    
+    .main-footer span { 
+      color: rgba(255,255,255,0.85); 
+      font-weight: 600; 
+    }
+
+    @media (max-width: 768px) {
+      .main-header { padding: 1rem; }
+      .hero-title { font-size: 2.5rem; }
+      .profile-layout { grid-template-columns: 1fr; }
+      .profile-sidebar { max-width: 340px; margin: 0 auto; }
+      .badge-info { display: none; }
+      .main-container { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="scroll-indicator" id="scrollProgress"></div>
+  
+  <header class="main-header">
+    <div class="brand-group">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="10" fill="#2f54eb"/>
+        <text x="18" y="25" text-anchor="middle" font-family="serif" font-size="18" font-weight="bold" fill="white">K</text>
+        <circle cx="28" cy="10" r="5" fill="#10b981"/>
+        <text x="28" y="14" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="white">J</text>
+      </svg>
+      <div class="brand-meta">
+        <h1>Report Siswa</h1>
+        <span>TIK· Kelas XIA1</span>
+      </div>
+    </div>
+    <div class="actions-group">
+      <span class="badge-info">KELAS XIA1 · SMA Kolese Kanisius</span>
+      <button class="theme-switcher" data-theme-toggle aria-label="Ganti Tema" id="themeBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero-banner">
+    <div class="hero-inner">
+      <div class="avatar-frame">
+        <img src="FotoProfil.jpeg" alt="Profil">
+      </div>
+      <h2 class="hero-title">Keandre Javas Nararya Baruna</h2>
+      <p class="hero-subtitle">Developer Kalcer</p>
+      <div class="tag-container">
+        <span class="tag-item">CC27</span>
+        <span class="tag-item">IMMO 147</span>
+        <span class="tag-item">PRELEG 2025/2026</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="main-container">
+    
+    <section class="section-padding profile-layout">
+      <div class="content-card">
+        <h4 class="section-tag">ABOUT ME</h4>
+        <p>Yo! Nama saya Keandre Javas Nararya Baruna. Saya seorang Kanisian dan walaupun saya tipe orang yang pendiam, saya suka membantu orang lain.</p>
+        <p>Mata pelajaran yang paling saya sukai adalah fisika karena saya suka menyelesaikan masalah dan menggunakan logika. Selain itu, saya juga suka bernyanyi dan saya pun merupakan anggota dari CaniBand.</p>
+        <p>Pengalaman saya dalam mempelajari TIK adalah pengalaman yang unik. Sejujurnya, saya tidak terlalu suka TIK. Tetapi, saya terkadang kagum dengan design website dan menulis kode lumayan mengasah logika.</p>
+
+      </div>
+
+       <aside class="profile-sidebar">
+        <img src="FotoProfil.jpeg" alt="Foto Formal" class="sidebar-img">
+        <h3 class="sidebar-name">Keandre Javas Nararya Baruna</h3>
+        <p class="sidebar-school">SMA Kolese Kanisius</p>
+        <ul class="info-list">
+          <li class="info-row"><span class="info-label">Kelas</span> <span>XI-A1</span></li>
+          <li class="info-row"><span class="info-label">Absen</span> <span>16</span></li>
+          <li class="info-row"><span class="info-label">Hobi</span> <span>🎮 Bermain Game</span></li>
+          <li class="info-row"><span class="info-label">Cita-cita</span> <span>⚙️🦾 Engineer</span></li>
+
+
+        </ul>
+      </aside>
+    </section>
+
+    <section class="section-padding">
+      <h4 class="section-tag">Akademis</h4>
+      <h3 class="section-title">Nilai &amp; Penugasan</h3>
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Topik Materi</th>
+              <th>Kategori</th>
+              <th>Nilai</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Review Website Allesio</td>
+              <td>Tugas Esai</td>
+              <td>94</td>
+              <td><span class="status-pill status-completed">Selesai</span></td>
+            </tr>
+            <tr>
+              <td>Tugas Web Biodata</td>
+              <td>Tugas Praktek</td>
+              <td>95</td>
+              <td><span class="status-pill status-completed">Selesai</span></td>
+            </tr>
+            <tr>
+              <td>Ulangan Harian</td>
+              <td>Ulangan</td>
+              <td>99</td>
+              <td><span class="status-pill status-completed">Selesai</span></td>
+            </tr>
+             <tr>
+              <td>Laporan Mini Project</td>
+              <td>Tugas Esai dan Praktek</td>
+              <td>95</td>
+              <td><span class="status-pill status-completed">Selesai</span></td>
+            </tr>
+             <tr>
+              <td>Tugas Analisis Javascript pada Mini Project</td>
+              <td>Tugas Esai</td>
+              <td>96</td>
+              <td><span class="status-pill status-completed">Selesai</span></td>
+            </tr>
+            <tr class="highlight-row">
+              <td>Rata-rata Capaian Saat Ini</td>
+              <td>-</td>
+              <td>95.8</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section-padding">
+      <h4 class="section-tag">Karya Mandiri</h4>
+      <h3 class="section-title">Showcase Proyek</h3>
+      <div class="cards-grid">
+        
+        <div class="project-card">
+          <div class="card-banner gradient-1">🛍️</div>
+          <div class="card-body">
+            <h3>Project 1 | Allesio</h3>
+            <p>Allesio adalah website e-commerce berbasis web yang dibuat untuk membantu UMKM dan pengrajin lokal memasarkan serta menjual produk mereka secara daring. Website ini dikembangkan menggunakan teknologi frontend seperti HTML, CSS, dan JavaScript untuk menciptakan tampilan yang interaktif, modern, dan mudah digunakan.</p>
+            <a href="project1.html" class="btn-action">Lihat Proyek 1 →</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="card-banner gradient-2">👨‍🎓</div>
+          <div class="card-body">
+            <h3>Project 2 | Website Biodata Siswa</h3>
+            <p>Website biodata ini merupakan halaman web sederhana yang dibuat untuk menampilkan informasi pribadi, kepribadian, dan hobi saya dalam tampilan yang rapi dan mudah dipahami. Website dikembangkan menggunakan HTML, CSS, dan Bootstrap untuk menciptakan desain yang terstruktur serta responsif.</p>
+            <a href="project2.html" class="btn-action">Lihat Proyek 2→</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="card-banner gradient-3">🔊</div>
+          <div class="card-body">
+            <h3>Project 3 | Audio Bible</h3>
+            <p>Audio Bible merupakan website showcase dan penjualan produk audio seperti AirPods yang dirancang dengan tampilan modern, interaktif, dan menarik secara visual. Website ini dikembangkan menggunakan HTML, CSS, dan JavaScript, serta memanfaatkan localStorage untuk membangun sistem keranjang belanja yang praktis dan responsif.</p>
+            <a href="project3.html" class="btn-action">Lihat Proyek 3→</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="main-footer">
+    <p>&copy; Dibuat oleh <span>Keandre Javas Nararya Baruna</span>.</p>
+  </footer>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    const htmlElem = document.documentElement;
+
+    themeBtn.addEventListener('click', () => {
+      const currentTheme = htmlElem.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      htmlElem.setAttribute('data-theme', newTheme);
+    });
+
+    window.addEventListener('scroll', () => {
+      const scrollProgress = document.getElementById('scrollProgress');
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.pageYOffset / totalHeight) * 100;
+      scrollProgress.style.width = progress + '%';
+    });
+  </script>
+</body>
+</html>
